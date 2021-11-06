@@ -1,0 +1,16 @@
+quarkus:
+  rest-client:
+    ch.zankowski.crypto.listing.binance.client.BinanceListingAnnouncementClient:
+      url: https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query
+      scope: javax.inject.Singleton
+  scheduler:
+    enabled: true
+  quartz:
+    start-mode: forced
+
+crypto:
+  exchange:
+    gate:
+      mode: PAPER
+      key: "GATEIO_API_KEY_v4"
+      secret: "GATEIO_SECRET_v4"
