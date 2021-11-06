@@ -84,7 +84,7 @@ public class BinanceListingService implements ListingService {
         log.info("Performing announcement listing check");
 
         fetchListingAnnouncements()
-//                .filter(coin -> !processedCurrencies.contains(coin))
+                .filter(coin -> !processedCurrencies.contains(coin))
                 .forEach(coin -> cryptoAnnouncementEvent.fire(CryptoAnnouncement.builder()
                         .cryptoSymbol(coin)
                         .build()));
