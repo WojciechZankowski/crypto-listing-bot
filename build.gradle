@@ -20,6 +20,8 @@ dependencies {
     implementation 'io.quarkus:quarkus-quartz'
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'org.mockito:mockito-core:4.0.0'
+    testImplementation 'org.assertj:assertj-core:3.21.0'
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
@@ -31,6 +33,7 @@ dependencies {
     implementation 'org.jboss.logmanager:log4j2-jboss-logmanager:1.0.0.Final'
     implementation 'ch.qos.logback:logback-classic:1.2.6'
     implementation 'io.gate:gate-api:6.22.4'
+    implementation 'com.github.redouane59.twitter:twittered:1.26'
 }
 
 group 'ch.zankowski'

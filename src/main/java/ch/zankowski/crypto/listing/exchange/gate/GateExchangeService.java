@@ -92,6 +92,7 @@ public class GateExchangeService implements ExchangeService {
             final Order preparedOrder = tickers.stream().findFirst()
                     .map(ticker -> {
                         final Order order = new Order();
+                        order.setCurrencyPair(cryptoSymbol.getCrypto() + "_USDT");
                         order.setPrice(ticker.getLast());
                         order.setType(Order.TypeEnum.LIMIT);
                         return order;

@@ -62,6 +62,9 @@ public class BinanceListingService implements ListingService {
 
     @SneakyThrows
     void onStart(@Observes StartupEvent ev) {
+        processedCurrencies.addAll(fetchListingAnnouncements()
+                .collect(Collectors.toSet()));
+
         final JobDetail job = JobBuilder.newJob(BinanceListingAnnouncementJob.class)
                 .withIdentity("Binance Announcement Listing")
                 .build();
@@ -73,9 +76,6 @@ public class BinanceListingService implements ListingService {
                         .repeatForever())
                 .build();
         quartz.scheduleJob(job, listingTrigger);
-
-        processedCurrencies.addAll(fetchListingAnnouncements()
-                .collect(Collectors.toSet()));
 
         log.info("Binance service initialized, initial currencies: " + processedCurrencies);
     }
