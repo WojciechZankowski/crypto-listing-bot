@@ -85,15 +85,18 @@ public class BinanceListingService implements ListingService {
 
         fetchListingAnnouncements()
                 .filter(coin -> !processedCurrencies.contains(coin))
-                .forEach(coin -> cryptoAnnouncementEvent.fire(CryptoAnnouncement.builder()
+                .forEach(coin -> {
+                    processedCurrencies.add(coin);
+                    cryptoAnnouncementEvent.fire(CryptoAnnouncement.builder()
                         .cryptoSymbol(coin)
-                        .build()));
+                        .build());
+                });
 
         log.info("Announcement listing finished");
     }
 
     Stream<CryptoSymbol> fetchListingAnnouncements() {
-        return binanceListingAnnouncementClient.getListingAnnouncements(48L, 1L, 5L, System.currentTimeMillis())
+        return binanceListingAnnouncementClient.getListingAnnouncements(48L, 1L, 3L, System.currentTimeMillis())
                 .getData().getArticles().stream()
                 .filter(IS_LISTING_ANNOUNCEMENT)
                 .flatMap(article -> CRYPTO_TICKER_PATTERN.matcher(article.getTitle()).results())

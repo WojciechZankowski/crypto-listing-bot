@@ -13,6 +13,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-rest-client'
     implementation 'io.quarkus:quarkus-config-yaml'
+    implementation 'io.quarkus:quarkus-cache'
     implementation 'io.quarkus:quarkus-jackson'
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-resteasy-jackson'
@@ -34,6 +35,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.6'
     implementation 'io.gate:gate-api:6.22.4'
     implementation 'com.github.redouane59.twitter:twittered:1.26'
+    implementation 'net.openhft.com.binance.api:binance-api-client:2.17.1'
 }
 
 group 'ch.zankowski'

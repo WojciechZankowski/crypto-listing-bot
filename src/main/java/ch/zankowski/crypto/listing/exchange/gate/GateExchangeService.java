@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,37 +73,49 @@ public class GateExchangeService implements ExchangeService {
         }
     }
 
+    public List<ch.zankowski.crypto.listing.marketdata.dto.Ticker> getAllTickers() {
+        try {
+            return apiInstance.listTickers().execute().stream()
+                    .map(ticker ->
+                            ch.zankowski.crypto.listing.marketdata.dto.Ticker.builder()
+                                    .currencyPair(ticker.getCurrencyPair())
+                                    .changePercentage(toBigDecimal(ticker.getChangePercentage()))
+                                    .high24h(toBigDecimal(ticker.getHigh24h()))
+                                    .low24h(toBigDecimal(ticker.getLow24h()))
+                                    .highestBid(toBigDecimal(ticker.getHighestBid()))
+                                    .lowestAsk(toBigDecimal(ticker.getLowestAsk()))
+                                    .baseVolume(toBigDecimal(ticker.getBaseVolume()))
+                                    .quoteVolume(toBigDecimal(ticker.getQuoteVolume()))
+                                    .last(toBigDecimal(ticker.getLast()))
+                                    .build())
+                    .collect(Collectors.toList());
+        } catch (final ApiException e) {
+            log.error("Failed to retrieve tickers");
+            return List.of();
+        }
+    }
+
+    private BigDecimal toBigDecimal(final String value) {
+        try {
+            return value == null ? null : new BigDecimal(value);
+        } catch (final Exception e) {
+            return null;
+        }
+    }
+
     @Override
     public synchronized Set<String> getSupportedCurrencies() {
         return supportedCurrencies;
     }
 
     @Override
-    public void placeOrder(final CryptoSymbol cryptoSymbol) {
-
+    public void placeOrder(final Order order) {
         try {
-            final List<Ticker> tickers = apiInstance.listTickers()
-                    .currencyPair(cryptoSymbol.getCrypto() + "_USDT")
-                    .execute();
 
-            if (tickers == null || tickers.isEmpty()) {
-                return;
-            }
-
-            final Order preparedOrder = tickers.stream().findFirst()
-                    .map(ticker -> {
-                        final Order order = new Order();
-                        order.setCurrencyPair(cryptoSymbol.getCrypto() + "_USDT");
-                        order.setPrice(ticker.getLast());
-                        order.setType(Order.TypeEnum.LIMIT);
-                        return order;
-                    })
-                    .orElse(null);
-
-            log.info("Order prepared " + preparedOrder);
+            log.info("Order prepared " + order);
 
         } catch (final Exception e) {
-            log.error("Failed to create order " + cryptoSymbol);
+            log.error("Failed to create order " + order);
         }
     }
 
