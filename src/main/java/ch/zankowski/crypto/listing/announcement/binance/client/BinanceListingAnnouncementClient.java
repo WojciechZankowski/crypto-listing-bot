@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.binance.client;
+package ch.zankowski.crypto.listing.announcement.binance.client;
 
-import ch.zankowski.crypto.listing.binance.dto.BinanceListingResponse;
+import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingResponse;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;

@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.binance.dto;
+package ch.zankowski.crypto.listing.announcement.binance.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;

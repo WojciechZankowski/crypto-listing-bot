@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.coinbase;
+package ch.zankowski.crypto.listing.announcement.coinbase;
 
 import com.github.redouane59.twitter.dto.tweet.Tweet;
 

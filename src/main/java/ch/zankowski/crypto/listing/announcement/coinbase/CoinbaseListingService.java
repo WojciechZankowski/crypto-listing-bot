@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.coinbase;
+package ch.zankowski.crypto.listing.announcement.coinbase;
 
-import ch.zankowski.crypto.listing.coinbase.client.CoinbaseListingAnnouncementClient;
+import ch.zankowski.crypto.listing.announcement.coinbase.client.CoinbaseListingAnnouncementClient;
 import ch.zankowski.crypto.listing.dto.CryptoAnnouncement;
 import ch.zankowski.crypto.listing.dto.CryptoExchange;
 import ch.zankowski.crypto.listing.dto.CryptoSymbol;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import static ch.zankowski.crypto.listing.coinbase.CoinbaseListingAnnouncementParser.extractSymbols;
+import static ch.zankowski.crypto.listing.announcement.coinbase.CoinbaseListingAnnouncementParser.extractSymbols;
 
 @Slf4j
 @ApplicationScoped

@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.coinbase.client;
+package ch.zankowski.crypto.listing.announcement.coinbase.client;
 
 import com.github.redouane59.twitter.ITwitterClientV2;
 import com.github.redouane59.twitter.TwitterClient;
@@ -12,7 +12,7 @@ import javax.enterprise.event.Observes;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static ch.zankowski.crypto.listing.coinbase.CoinbaseListingAnnouncementParser.extractSymbols;
+import static ch.zankowski.crypto.listing.announcement.coinbase.CoinbaseListingAnnouncementParser.extractSymbols;
 
 @Slf4j
 @ApplicationScoped

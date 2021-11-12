@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.coinbase.client;
+package ch.zankowski.crypto.listing.announcement.coinbase.client;
 
-import ch.zankowski.crypto.listing.coinbase.CoinbaseListingAnnouncementParser;
+import ch.zankowski.crypto.listing.announcement.coinbase.CoinbaseListingAnnouncementParser;
 import com.github.redouane59.twitter.dto.tweet.Tweet;
 import org.junit.jupiter.api.Test;
 
