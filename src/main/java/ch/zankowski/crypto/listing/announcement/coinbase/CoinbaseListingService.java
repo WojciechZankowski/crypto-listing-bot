@@ -16,24 +16,32 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import static ch.zankowski.crypto.listing.announcement.coinbase.CoinbaseListingAnnouncementParser.extractSymbols;
+import static ch.zankowski.crypto.listing.announcement.coinbase.CoinbaseListingAnnouncementParser.isAnnouncementTweet;
 
 @Slf4j
 @ApplicationScoped
 public class CoinbaseListingService {
 
-    @Inject
-    Event<CryptoAnnouncement> cryptoAnnouncementEvent;
+    private final CoinbaseListingAnnouncementClient coinbaseListingAnnouncementClient;
+    private Event<CryptoAnnouncement> cryptoAnnouncementEvent;
 
     @Inject
-    CoinbaseListingAnnouncementClient coinbaseListingAnnouncementClient;
+    public CoinbaseListingService(final Event<CryptoAnnouncement> cryptoAnnouncementEvent,
+                                  final CoinbaseListingAnnouncementClient coinbaseListingAnnouncementClient) {
+        this.cryptoAnnouncementEvent = cryptoAnnouncementEvent;
+        this.coinbaseListingAnnouncementClient = coinbaseListingAnnouncementClient;
+    }
 
     private final Consumer<Tweet> announcementTweetConsumer = tweet -> {
         try {
+            if (tweet == null) {
+                return;
+            }
             log.info("New tweet " + tweet.getText());
 
-            if (tweet.getText().contains("Inbound transfers")) {
+            if (isAnnouncementTweet(tweet)) {
                 final Set<String> symbols = extractSymbols(tweet);
-                log.warn("======== COINBASE LISTING announced" + symbols);
+                log.warn("Coinbase listing announcement for symbols " + symbols);
 
                 symbols.forEach(symbol -> cryptoAnnouncementEvent.fire(CryptoAnnouncement.builder()
                         .cryptoSymbol(CryptoSymbol.builder()
@@ -43,12 +51,22 @@ public class CoinbaseListingService {
                         .build()));
             }
         } catch (final Exception e) {
-            log.error("No exceptions allowed" + e);
+            log.error("New coinbase pro tweet failed. No exceptions allowed " + e);
         }
     };
 
     void onStart(@Observes StartupEvent ev) {
-        coinbaseListingAnnouncementClient.subscribeToAnnouncementTweets(announcementTweetConsumer);
+        subscribeToAnnouncementTweets();
+    }
+
+    private void subscribeToAnnouncementTweets() {
+        try {
+            coinbaseListingAnnouncementClient.subscribeToAnnouncementTweets(announcementTweetConsumer);
+        } catch (final Exception e) {
+            // Subscription failed, try again
+            log.error("Subscription failed to announcement tweets. Trying again.");
+            subscribeToAnnouncementTweets();
+        }
     }
 
 }

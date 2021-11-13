@@ -44,4 +44,24 @@ class CoinbaseListingAnnouncementParserTest {
                 .containsExactlyInAnyOrder("KRL", "LCX", "SUKU", "TRAC");
     }
 
+    @Test
+    void shouldNotIdentifyNewPairTweetAsAnAnnouncement() {
+        final Tweet tweet = mock(Tweet.class);
+        when(tweet.getText()).thenReturn("Our TRAC-USDT and TRAC-EUR order books will now enter limit-only mode. " +
+                "Limit orders can be placed and cancelled, and matches may occur. Market orders cannot be submitted.");
+
+        assertThat(CoinbaseListingAnnouncementParser.isAnnouncementTweet(tweet)).isFalse();
+    }
+
+    @Test
+    void shouldIdentifyTweetAsAnAnnouncement() {
+        final Tweet tweet = mock(Tweet.class);
+        when(tweet.getText()).thenReturn("Inbound transfers for KRL, LCX, SUKU & TRAC are now available in the " +
+                "regions where trading is supported. Traders cannot place orders and no orders will be filled. " +
+                "Trading will begin on or after 9AM PT on Thurs October 28, if liquidity conditions are met. " +
+                "https://blog.coinbase.com/kryll-krl-lcx-");
+
+        assertThat(CoinbaseListingAnnouncementParser.isAnnouncementTweet(tweet)).isTrue();
+    }
+
 }
