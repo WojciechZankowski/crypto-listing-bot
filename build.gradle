@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.quarkus'
+    id "org.sonarqube" version "3.3"
 }
 
 repositories {
@@ -54,4 +55,12 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "WojciechZankowski_crypto-listing-bot"
+        property "sonar.organization", "wojciechzankowski-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
