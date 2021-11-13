@@ -2,7 +2,7 @@ package ch.zankowski.crypto.listing;
 
 import ch.zankowski.crypto.listing.dto.CryptoSymbol;
 import ch.zankowski.crypto.listing.exchange.gate.GateExchangeService;
-import ch.zankowski.crypto.listing.marketdata.MarketDataProvider;
+import ch.zankowski.crypto.listing.marketdata.gate.GateMarketDataProvider;
 import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
 
 import javax.inject.Inject;
@@ -23,7 +23,7 @@ public class ListingResource {
     ListingService listingService;
 
     @Inject
-    MarketDataProvider marketDataProvider;
+    GateMarketDataProvider marketDataProvider;
 
     @GET
     @Path("/supported-currencies")

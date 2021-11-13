@@ -1,26 +1,24 @@
 package ch.zankowski.crypto.listing.exchange.gate;
 
-import ch.zankowski.crypto.listing.dto.CryptoSymbol;
 import ch.zankowski.crypto.listing.exchange.ExchangeService;
 import io.gate.gateapi.ApiClient;
 import io.gate.gateapi.ApiException;
-import io.gate.gateapi.Configuration;
 import io.gate.gateapi.api.SpotApi;
 import io.gate.gateapi.models.Currency;
 import io.gate.gateapi.models.Order;
-import io.gate.gateapi.models.Ticker;
 import io.quarkus.scheduler.Scheduled;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static ch.zankowski.crypto.listing.util.BigDecimals.toBigDecimal;
 
 @Slf4j
 @ApplicationScoped
@@ -34,22 +32,18 @@ public class GateExchangeService implements ExchangeService {
 
     private final Set<String> supportedCurrencies = ConcurrentHashMap.newKeySet();
 
-    private final SpotApi apiInstance;
+    private final GateExchangeClient gateExchangeClient;
 
     @Inject
-    GateExchangeConfig gateExchangeConfig;
-
-    public GateExchangeService() {
-        final ApiClient defaultClient = Configuration.getDefaultApiClient();
-        defaultClient.setBasePath("https://api.gateio.ws/api/v4");
-        apiInstance = new SpotApi(defaultClient);
+    public GateExchangeService(final GateExchangeClient gateExchangeClient) {
+        this.gateExchangeClient = gateExchangeClient;
     }
 
     @Scheduled(every = "1h", identity = "gate-io-supported-currnecies")
     synchronized void fetchSupportedCurrencies() {
         try {
             log.info("Gate IO supported currencies retrieval started");
-            final Set<String> refreshedSupportedCurrencies = apiInstance.listCurrencies().stream()
+            final Set<String> refreshedSupportedCurrencies = gateExchangeClient.listCurrencies().stream()
                     .filter(IS_VALID_CURRENCY)
                     .map(Currency::getCurrency)
                     .collect(Collectors.toSet());
@@ -73,36 +67,6 @@ public class GateExchangeService implements ExchangeService {
         }
     }
 
-    public List<ch.zankowski.crypto.listing.marketdata.dto.Ticker> getAllTickers() {
-        try {
-            return apiInstance.listTickers().execute().stream()
-                    .map(ticker ->
-                            ch.zankowski.crypto.listing.marketdata.dto.Ticker.builder()
-                                    .currencyPair(ticker.getCurrencyPair())
-                                    .changePercentage(toBigDecimal(ticker.getChangePercentage()))
-                                    .high24h(toBigDecimal(ticker.getHigh24h()))
-                                    .low24h(toBigDecimal(ticker.getLow24h()))
-                                    .highestBid(toBigDecimal(ticker.getHighestBid()))
-                                    .lowestAsk(toBigDecimal(ticker.getLowestAsk()))
-                                    .baseVolume(toBigDecimal(ticker.getBaseVolume()))
-                                    .quoteVolume(toBigDecimal(ticker.getQuoteVolume()))
-                                    .last(toBigDecimal(ticker.getLast()))
-                                    .build())
-                    .collect(Collectors.toList());
-        } catch (final ApiException e) {
-            log.error("Failed to retrieve tickers");
-            return List.of();
-        }
-    }
-
-    private BigDecimal toBigDecimal(final String value) {
-        try {
-            return value == null ? null : new BigDecimal(value);
-        } catch (final Exception e) {
-            return null;
-        }
-    }
-
     @Override
     public synchronized Set<String> getSupportedCurrencies() {
         return supportedCurrencies;
@@ -111,9 +75,8 @@ public class GateExchangeService implements ExchangeService {
     @Override
     public void placeOrder(final Order order) {
         try {
-
             log.info("Order prepared " + order);
-
+            gateExchangeClient.placeOrder(order);
         } catch (final Exception e) {
             log.error("Failed to create order " + order);
         }

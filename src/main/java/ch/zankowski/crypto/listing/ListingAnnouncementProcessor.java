@@ -2,7 +2,7 @@ package ch.zankowski.crypto.listing;
 
 import ch.zankowski.crypto.listing.dto.CryptoAnnouncement;
 import ch.zankowski.crypto.listing.exchange.gate.GateExchangeService;
-import ch.zankowski.crypto.listing.marketdata.MarketDataProvider;
+import ch.zankowski.crypto.listing.marketdata.gate.GateMarketDataProvider;
 import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
 import io.gate.gateapi.models.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +23,15 @@ public class ListingAnnouncementProcessor {
     private static final BigDecimal LIMIT_MULTIPLIER = BigDecimal.valueOf(1.3);
     private static final MathContext MATH_CONTEXT = new MathContext(2, RoundingMode.HALF_UP);
 
-    @Inject
-    GateExchangeService gateExchangeService;
+    private final GateExchangeService gateExchangeService;
+    private final GateMarketDataProvider marketDataProvider;
 
     @Inject
-    MarketDataProvider marketDataProvider;
+    public ListingAnnouncementProcessor(final GateExchangeService gateExchangeService,
+                                        final GateMarketDataProvider marketDataProvider) {
+        this.gateExchangeService = gateExchangeService;
+        this.marketDataProvider = marketDataProvider;
+    }
 
     void onCryptoAnnounced(@Observes CryptoAnnouncement announcement) {
         log.info("Crypto announced " + announcement);
@@ -36,7 +40,6 @@ public class ListingAnnouncementProcessor {
         log.info("New crypto supported " + supportedCurrencies.contains(announcement.getCryptoSymbol().getCrypto()));
 
         final String currencyPair = announcement.getCryptoSymbol().getCrypto() + "_USDT";
-
         final Order order = createOrder(marketDataProvider.getTicker(currencyPair));
 
         if (order != null) {
@@ -50,10 +53,12 @@ public class ListingAnnouncementProcessor {
         }
 
         final Order order = new Order();
+        order.setAccount(Order.AccountEnum.SPOT);
+        order.setType(Order.TypeEnum.LIMIT);
         order.setCurrencyPair(ticker.getCurrencyPair());
+        order.setSide(Order.SideEnum.BUY);
         order.setPrice(calculateLimit(ticker.getLast()).toPlainString());
         order.setAmount(AMOUNT.toPlainString());
-        order.setType(Order.TypeEnum.LIMIT);
         return order;
     }
 
