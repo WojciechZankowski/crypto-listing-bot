@@ -1,7 +1,6 @@
 package ch.zankowski.crypto.listing;
 
 import ch.zankowski.crypto.listing.dto.CryptoAnnouncement;
-import ch.zankowski.crypto.listing.exchange.binance.BinanceExchangeService;
 import ch.zankowski.crypto.listing.exchange.gate.GateExchangeService;
 import ch.zankowski.crypto.listing.marketdata.MarketDataProvider;
 import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
@@ -26,9 +25,6 @@ public class ListingAnnouncementProcessor {
 
     @Inject
     GateExchangeService gateExchangeService;
-
-    @Inject
-    BinanceExchangeService binanceExchangeService;
 
     @Inject
     MarketDataProvider marketDataProvider;

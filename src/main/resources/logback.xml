@@ -14,7 +14,7 @@
 
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>log-${byDay}.txt</file>
+        <file>logs/log-${byDay}.txt</file>
         <append>true</append>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
