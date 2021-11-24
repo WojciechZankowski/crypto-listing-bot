@@ -8,6 +8,6 @@ public interface ExchangeService {
 
     Set<String> getSupportedCurrencies();
 
-    void placeOrder(Order order);
+    Order placeOrder(Order order);
 
 }

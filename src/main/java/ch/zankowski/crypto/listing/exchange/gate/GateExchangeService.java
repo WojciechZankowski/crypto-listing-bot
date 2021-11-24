@@ -1,9 +1,7 @@
 package ch.zankowski.crypto.listing.exchange.gate;
 
 import ch.zankowski.crypto.listing.exchange.ExchangeService;
-import io.gate.gateapi.ApiClient;
 import io.gate.gateapi.ApiException;
-import io.gate.gateapi.api.SpotApi;
 import io.gate.gateapi.models.Currency;
 import io.gate.gateapi.models.Order;
 import io.quarkus.scheduler.Scheduled;
@@ -12,13 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import static ch.zankowski.crypto.listing.util.BigDecimals.toBigDecimal;
 
 @Slf4j
 @ApplicationScoped
@@ -73,12 +68,13 @@ public class GateExchangeService implements ExchangeService {
     }
 
     @Override
-    public void placeOrder(final Order order) {
+    public Order placeOrder(final Order order) {
         try {
             log.info("Order prepared " + order);
-            gateExchangeClient.placeOrder(order);
+            return gateExchangeClient.placeOrder(order);
         } catch (final Exception e) {
             log.error("Failed to create order " + order);
+            return null;
         }
     }
 

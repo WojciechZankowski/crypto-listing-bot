@@ -1,8 +1,12 @@
 package ch.zankowski.crypto.listing.util;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class BigDecimals {
+
+    private static final MathContext DIVISION_CONTEXT = new MathContext(4, RoundingMode.HALF_UP);
 
     private BigDecimals() {
         // static util
@@ -15,6 +19,10 @@ public class BigDecimals {
         } catch (final Exception e) {
             return null;
         }
+    }
+
+    public static BigDecimal divide(final BigDecimal dividend, final BigDecimal divisor) {
+        return dividend.divide(divisor, DIVISION_CONTEXT);
     }
 
 }

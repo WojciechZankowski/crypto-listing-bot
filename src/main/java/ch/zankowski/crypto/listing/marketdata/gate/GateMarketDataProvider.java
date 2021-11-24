@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -35,6 +36,11 @@ public class GateMarketDataProvider implements MarketDataProvider {
 
     public Ticker getTicker(final String currencyPair) {
         return marketData.get(currencyPair);
+    }
+
+    @Override
+    public Optional<Ticker> getRealTimeTicker(final String currencyPair) {
+        return gateExchangeClient.listTicker(currencyPair);
     }
 
     public List<Ticker> getAllTickers() {
