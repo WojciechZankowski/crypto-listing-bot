@@ -36,7 +36,8 @@ public class BinanceAnnouncementParser {
     }
 
     static Set<CryptoSymbol> parse(final List<BinanceListingArticle> articles) {
-        return articles == null ? Set.of() : articles.stream().filter(IS_LISTING_ANNOUNCEMENT)
+        return articles == null ? Set.of() : articles.stream()
+                .filter(IS_LISTING_ANNOUNCEMENT)
                 .flatMap(article -> CRYPTO_TICKER_PATTERN.matcher(article.getTitle()).results())
                 .map(result -> result.group(1))
                 .filter(Objects::nonNull)

@@ -10,7 +10,8 @@ class BigDecimalsTest {
 
     @Test
     void shouldSuccessfullyCreateBigDecimalFromString() {
-        assertThat(BigDecimals.toBigDecimal("100.00")).isEqualTo(BigDecimal.valueOf(100));
+        assertThat(BigDecimals.toBigDecimal("100.00")).usingComparator(BigDecimal::compareTo)
+                .isEqualTo(BigDecimal.valueOf(100));
     }
 
     @Test

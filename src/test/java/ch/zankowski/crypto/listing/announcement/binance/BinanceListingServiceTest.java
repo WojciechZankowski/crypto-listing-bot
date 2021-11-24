@@ -100,27 +100,19 @@ class BinanceListingServiceTest {
     private BinanceListingResponse prepareListingResponse() {
         return prepareListingResponse(List.of(
                 BinanceListingArticle.builder()
-                        .id(1L)
-                        .code("3cc58db7ef894061b0e449e34b22265a")
                         .title("Binance Futures Will Launch Coin-Margined SAND Perpetual Contracts " +
                                 "with Up to" +
                                 " 20X Leverage")
                         .build(),
                 BinanceListingArticle.builder()
-                        .id(1L)
-                        .code("cfef2fc1127d4a9fbeb8f29f4f223cf8")
                         .title("Binance Will List Moonriver (MOVR)")
                         .build(),
                 BinanceListingArticle.builder()
-                        .id(1L)
-                        .code("b9fbcf46da3a4d7f8f2d1bf1bd874665")
                         .title("Binance Adds BETA & BNX on Isolated Margin, Stablecoins Annual " +
                                 "Interest Rate " +
                                 "Starts at 6.20%!")
                         .build(),
                 BinanceListingArticle.builder()
-                        .id(1L)
-                        .code("14e4354e11444c7092934e618f5eac64")
                         .title("Introducing the FC Porto Fan Token (PORTO) Token Sale on Binance " +
                                 "Launchpad!")
                         .build()

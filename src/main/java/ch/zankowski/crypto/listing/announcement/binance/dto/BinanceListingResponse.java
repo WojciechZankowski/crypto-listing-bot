@@ -11,9 +11,6 @@ import lombok.extern.jackson.Jacksonized;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BinanceListingResponse {
 
-    private final String code;
-    private final String message;
-    private final String messageDetail;
     private final BinanceListingData data;
 
 }
