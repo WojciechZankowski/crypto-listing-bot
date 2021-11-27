@@ -1,16 +1,43 @@
 quarkus:
   rest-client:
-    ch.zankowski.crypto.listing.binance.client.BinanceListingAnnouncementClient:
+    ch.zankowski.crypto.listing.announcement.binance.client.BinanceListingAnnouncementClient:
       url: https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query
       scope: javax.inject.Singleton
   scheduler:
     enabled: true
   quartz:
     start-mode: forced
+  log:
+    file:
+      path: /logs/crypto-listing-bot.log
+      enable: true
+      rotation:
+        max-file-size: 10
+        file-suffix: yyyy-MM-dd
+      level: DEBUG
+    console:
+      format: "%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{3.}] (%t) %s%e%n"
+    handler:
+      console:
+        "CONSOLE_LOGGING":
+          format: "%e"
+      file:
+        "FILE_LOGGING":
+          enable: true
+          format: "%e"
+    category:
+      "ch.zankowski.crypto.listing":
+        level: INFO
+        handlers: CONSOLE_LOGGING,FILE_LOGGING
+    min-level: INFO
+    level: INFO
 
 crypto:
   exchange:
     gate:
       mode: PAPER
-      key: "GATEIO_API_KEY_v4"
-      secret: "GATEIO_SECRET_v4"
+      key: XXXX
+      secret: XXXXXXXX
+  twitter:
+    apiKey: XXXXXXXXX
+    secretApiKey: XXXXXXXXXXX

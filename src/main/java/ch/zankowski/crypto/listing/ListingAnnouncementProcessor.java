@@ -22,8 +22,8 @@ import java.util.concurrent.Executors;
 @ApplicationScoped
 public class ListingAnnouncementProcessor {
 
-    private static final BigDecimal AMOUNT = BigDecimal.valueOf(100);
-    private static final BigDecimal LIMIT_MULTIPLIER = BigDecimal.valueOf(1.3);
+    private static final BigDecimal AMOUNT = BigDecimal.valueOf(40);
+    private static final BigDecimal LIMIT_MULTIPLIER = BigDecimal.valueOf(1.2);
     private static final MathContext MATH_CONTEXT = new MathContext(2, RoundingMode.HALF_UP);
 
     private static final ExecutorService THREAD_EXECUTOR_SERVICE = Executors.newFixedThreadPool(4);

@@ -14,7 +14,7 @@ import java.util.function.Consumer;
  * Garbage, re-do if bot will make any money
  */
 @Slf4j
-public class ListingOrderCancellationThread extends Thread {
+public class ListingOrderCancellationThread implements Runnable {
 
     private static final BigDecimal TAKE_PROFIT_THRESHOLD = BigDecimal.valueOf(0.1);
     private static final BigDecimal STOP_LOSS_THRESHOLD = BigDecimal.valueOf(-0.03);
@@ -30,7 +30,6 @@ public class ListingOrderCancellationThread extends Thread {
             final ExchangeService exchangeService,
             final MarketDataProvider marketDataProvider,
             final Order order) {
-        super("Listing-Cancellation-Thread-" + order.getCurrencyPair());
         this.exchangeService = exchangeService;
         this.marketDataProvider = marketDataProvider;
         this.order = order;
