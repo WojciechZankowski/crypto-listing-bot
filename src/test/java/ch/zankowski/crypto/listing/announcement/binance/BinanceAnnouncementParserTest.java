@@ -119,8 +119,12 @@ class BinanceAnnouncementParserTest {
                                 .catalogName("Announcements")
                                 .articles(List.of(
                                         BinanceListingArticle.builder()
-                                                .title("Binance Futures Will Launch Coin-Margined FTM Perpetual Contracts with Up to " +
-                                                        "20X Leverage")
+                                                .title("Binance Futures Will Launch Coin-Margined FTM Perpetual " +
+                                                        "Contracts with Up to 20X Leverage")
+                                                .build(),
+                                        BinanceListingArticle.builder()
+                                                .title("Binance Futures Will Launch USD?-Margined COLLECTUSDT and " +
+                                                        "MAGMAUSDT Perpetual Contracts (2025-12-31)")
                                                 .build()
                                 ))
                                 .build()

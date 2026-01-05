@@ -62,7 +62,7 @@ public class BinanceListingService implements ListingService {
                 .build();
         quartz.scheduleJob(job, listingTrigger);
 
-        log.info("Binance service initialized, initial currencies: " + processedCurrencies);
+        log.info("Binance service initialized, initial currencies: {}", processedCurrencies);
     }
 
     void performAnnouncementListingCheck() {

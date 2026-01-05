@@ -32,7 +32,7 @@ public class GateMarketDataProvider implements MarketDataProvider {
     void refreshMarketData() {
         log.info("Market Data refreshment started.");
         gateExchangeClient.listTickers().forEach(ticker -> marketData.put(ticker.getCurrencyPair(), ticker));
-        log.info("Market Data USDT pairs snapshot: " + marketData.entrySet().stream()
+        log.info("Market Data USDT pairs snapshot: {}", marketData.entrySet().stream()
                 .filter(entry -> entry.getKey().contains("_USDT"))
                 .collect(Collectors.toList()));
         log.info("Market Data refreshment finished.");

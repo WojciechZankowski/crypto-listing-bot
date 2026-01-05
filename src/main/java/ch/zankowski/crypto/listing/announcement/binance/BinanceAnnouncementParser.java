@@ -18,14 +18,14 @@ public class BinanceAnnouncementParser {
     private static final Pattern CRYPTO_TICKER_PATTERN = Pattern.compile("\\(([^)]+)");
     private static final Pattern CRYPTO_TICKER_WITHOUT_BRACKETS = Pattern.compile("(?:List|list)\\s+([A-Z]+)(?:\\s|&|$)");
 
-    private static final Set<String> EXCLUDED_WORDS = Set.of("Futures", "Margin", "adds", "Adds");
+    private static final Set<String> EXCLUDED_WORDS = Set.of("futures", "margin", "adds", "will add");
 
     private static final Predicate<BinanceListingArticle> IS_LISTING_ANNOUNCEMENT = article -> {
         if (!Objects.nonNull(article.getTitle())) {
             return false;
         }
-        return article.getTitle().toLowerCase(Locale.ROOT).contains("will") &&
-                EXCLUDED_WORDS.stream().noneMatch(word -> article.getTitle().contains(word));
+        var lowerCaseTitle = article.getTitle().toLowerCase(Locale.ROOT);
+        return lowerCaseTitle.contains("will") && EXCLUDED_WORDS.stream().noneMatch(lowerCaseTitle::contains);
     };
 
     private BinanceAnnouncementParser() {

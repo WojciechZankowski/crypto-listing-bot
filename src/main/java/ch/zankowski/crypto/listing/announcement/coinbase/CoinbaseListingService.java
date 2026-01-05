@@ -37,11 +37,11 @@ public class CoinbaseListingService {
             if (tweet == null) {
                 return;
             }
-            log.info("New tweet " + tweet.getText());
+            log.info("New tweet {}", tweet.getText());
 
             if (isAnnouncementTweet(tweet)) {
                 final Set<String> symbols = extractSymbols(tweet);
-                log.warn("Coinbase listing announcement for symbols " + symbols);
+                log.warn("Coinbase listing announcement for symbols {}", symbols);
 
                 symbols.forEach(symbol -> cryptoAnnouncementEvent.fire(CryptoAnnouncement.builder()
                         .cryptoSymbol(CryptoSymbol.builder()
@@ -51,7 +51,7 @@ public class CoinbaseListingService {
                         .build()));
             }
         } catch (final Exception e) {
-            log.error("New coinbase pro tweet failed. No exceptions allowed " + e);
+            log.error("New coinbase pro tweet failed. No exceptions allowed {}", String.valueOf(e));
         }
     };
 

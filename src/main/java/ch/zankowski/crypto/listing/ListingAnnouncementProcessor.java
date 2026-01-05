@@ -39,10 +39,10 @@ public class ListingAnnouncementProcessor {
     }
 
     void onCryptoAnnounced(@Observes CryptoAnnouncement announcement) {
-        log.info("Crypto announced " + announcement);
+        log.info("Crypto announced {}", announcement);
 
         final Set<String> supportedCurrencies = gateExchangeService.getSupportedCurrencies();
-        log.info("New crypto supported " + supportedCurrencies.contains(announcement.getCryptoSymbol().getCrypto()));
+        log.info("New crypto supported {}", supportedCurrencies.contains(announcement.getCryptoSymbol().getCrypto()));
 
         final String currencyPair = announcement.getCryptoSymbol().getCrypto() + "_USDT";
         final Order order = createOrder(marketDataProvider.getTicker(currencyPair));
@@ -55,7 +55,7 @@ public class ListingAnnouncementProcessor {
                         marketDataProvider, placedOrder));
             }
 
-            log.info("Placed order: " + placedOrder);
+            log.info("Placed order: {}", placedOrder);
         }
     }
 

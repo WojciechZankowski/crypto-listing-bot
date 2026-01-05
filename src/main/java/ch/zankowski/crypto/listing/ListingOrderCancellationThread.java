@@ -37,7 +37,7 @@ public class ListingOrderCancellationThread implements Runnable {
 
     @Override
     public void run() {
-        log.info("Order cancellation thread starting " + order.getCurrencyPair() + "...");
+        log.info("Order cancellation thread starting {}...", order.getCurrencyPair());
 
         final Consumer<Ticker> tickerConsumer = ticker -> {
 
@@ -49,9 +49,7 @@ public class ListingOrderCancellationThread implements Runnable {
 
                 final BigDecimal profitAndLoss = BigDecimals.divide(orderPrice, priceDifference);
 
-                log.info("Placing close order, order price: " + orderPrice
-                        + ", market price: " + ticker.getLast() + ", profitAndLoss: " + profitAndLoss
-                        + ", price difference: " + priceDifference);
+                log.info("Placing close order, order price: {}, market price: {}, profitAndLoss: {}, price difference: {}", orderPrice, ticker.getLast(), profitAndLoss, priceDifference);
 
                 if (profitAndLoss.compareTo(TAKE_PROFIT_THRESHOLD) > 0) {
                     final Order placedOrder =
@@ -59,7 +57,7 @@ public class ListingOrderCancellationThread implements Runnable {
                                     this.order.getCurrencyPair(),
                                     this.order.getPrice(),
                                     this.order.getAmount()));
-                    log.warn("Order placed: " + placedOrder);
+                    log.warn("Order placed: {}", placedOrder);
 
                     keepRetrying = false;
 
@@ -69,7 +67,7 @@ public class ListingOrderCancellationThread implements Runnable {
                                     this.order.getCurrencyPair(),
                                     orderPrice.add(priceDifference).toPlainString(),
                                     this.order.getAmount()));
-                    log.warn("Order placed: " + placedOrder);
+                    log.warn("Order placed: {}", placedOrder);
 
                     keepRetrying = false;
 
@@ -87,7 +85,7 @@ public class ListingOrderCancellationThread implements Runnable {
 
             } catch (final Exception e) {
                 failureCount++;
-                log.error("Order closure failed. " + e);
+                log.error("Order closure failed. {}", String.valueOf(e));
             }
         };
 
@@ -97,11 +95,11 @@ public class ListingOrderCancellationThread implements Runnable {
                         .ifPresent(tickerConsumer);
             } catch (final Exception e) {
                 failureCount++;
-                log.error("Order closure failed. " + e);
+                log.error("Order closure failed. {}", String.valueOf(e));
             }
         }
 
-        log.info("Order cancellation thread stopping " + order.getCurrencyPair() + "...");
+        log.info("Order cancellation thread stopping {}...", order.getCurrencyPair());
     }
 
 

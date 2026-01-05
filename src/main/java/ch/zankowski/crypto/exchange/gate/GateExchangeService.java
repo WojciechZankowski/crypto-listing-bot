@@ -45,17 +45,17 @@ public class GateExchangeService implements ExchangeService {
 
             final Set<String> remove = new HashSet<>(supportedCurrencies);
             remove.removeAll(refreshedSupportedCurrencies);
-            log.info("Elements to remove : " + remove);
+            log.info("Elements to remove : {}", remove);
 
             supportedCurrencies.removeAll(remove);
 
             final Set<String> add = new HashSet<>(refreshedSupportedCurrencies);
             add.removeAll(supportedCurrencies);
-            log.info("Elements to add : " + add);
+            log.info("Elements to add : {}", add);
 
             supportedCurrencies.addAll(add);
 
-            log.info("Gate IO supported currencies finished: " + supportedCurrencies);
+            log.info("Gate IO supported currencies finished: {}", supportedCurrencies);
 
         } catch (final ApiException e) {
             log.error("Failed to refresh supported currencies");
@@ -70,10 +70,10 @@ public class GateExchangeService implements ExchangeService {
     @Override
     public Order placeOrder(final Order order) {
         try {
-            log.info("Order prepared " + order);
+            log.info("Order prepared {}", order);
             return gateExchangeClient.placeOrder(order);
         } catch (final Exception e) {
-            log.error("Failed to create order " + order);
+            log.error("Failed to create order {}", order);
             return null;
         }
     }
