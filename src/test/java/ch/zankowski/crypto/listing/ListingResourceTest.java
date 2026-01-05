@@ -1,4 +1,4 @@
-package ch.zankowski;
+package ch.zankowski.crypto.listing;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Disabled;

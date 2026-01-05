@@ -1,7 +1,8 @@
-package ch.zankowski.crypto.listing.marketdata.gate;
+package ch.zankowski.crypto.marketdata.gate;
 
-import ch.zankowski.crypto.listing.exchange.gate.GateExchangeClient;
-import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
+import ch.zankowski.crypto.exchange.gate.GateExchangeClient;
+import ch.zankowski.crypto.marketdata.dto.Ticker;
+import ch.zankowski.crypto.marketdata.gate.GateMarketDataProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -2,6 +2,7 @@ package ch.zankowski.crypto.listing.announcement.binance;
 
 import ch.zankowski.crypto.listing.announcement.binance.client.BinanceListingAnnouncementClient;
 import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingArticle;
+import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingCatalog;
 import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingData;
 import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingResponse;
 import ch.zankowski.crypto.listing.dto.CryptoAnnouncement;
@@ -13,6 +14,7 @@ import org.mockito.ArgumentCaptor;
 import org.quartz.Scheduler;
 
 import jakarta.enterprise.event.Event;
+
 import java.util.List;
 import java.util.Set;
 
@@ -92,7 +94,12 @@ class BinanceListingServiceTest {
     private BinanceListingResponse prepareListingResponse(final List<BinanceListingArticle> articles) {
         return BinanceListingResponse.builder()
                 .data(BinanceListingData.builder()
-                        .articles(articles)
+                        .catalogs(List.of(
+                                BinanceListingCatalog.builder()
+                                        .catalogId(1L)
+                                        .catalogName("Announcements")
+                                        .articles(articles)
+                                        .build()))
                         .build())
                 .build();
     }
@@ -101,16 +108,14 @@ class BinanceListingServiceTest {
         return prepareListingResponse(List.of(
                 BinanceListingArticle.builder()
                         .title("Binance Futures Will Launch Coin-Margined SAND Perpetual Contracts " +
-                                "with Up to" +
-                                " 20X Leverage")
+                                "with Up to 20X Leverage")
                         .build(),
                 BinanceListingArticle.builder()
                         .title("Binance Will List Moonriver (MOVR)")
                         .build(),
                 BinanceListingArticle.builder()
                         .title("Binance Adds BETA & BNX on Isolated Margin, Stablecoins Annual " +
-                                "Interest Rate " +
-                                "Starts at 6.20%!")
+                                "Interest Rate Starts at 6.20%!")
                         .build(),
                 BinanceListingArticle.builder()
                         .title("Introducing the FC Porto Fan Token (PORTO) Token Sale on Binance " +

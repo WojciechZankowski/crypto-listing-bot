@@ -1,9 +1,9 @@
 package ch.zankowski.crypto.listing;
 
 import ch.zankowski.crypto.listing.dto.CryptoAnnouncement;
-import ch.zankowski.crypto.listing.exchange.gate.GateExchangeService;
-import ch.zankowski.crypto.listing.marketdata.gate.GateMarketDataProvider;
-import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
+import ch.zankowski.crypto.exchange.gate.GateExchangeService;
+import ch.zankowski.crypto.marketdata.gate.GateMarketDataProvider;
+import ch.zankowski.crypto.marketdata.dto.Ticker;
 import ch.zankowski.crypto.listing.util.BigDecimals;
 import io.gate.gateapi.models.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +54,8 @@ public class ListingAnnouncementProcessor {
                 THREAD_EXECUTOR_SERVICE.execute(new ListingOrderCancellationThread(gateExchangeService,
                         marketDataProvider, placedOrder));
             }
+
+            log.info("Placed order: " + placedOrder);
         }
     }
 

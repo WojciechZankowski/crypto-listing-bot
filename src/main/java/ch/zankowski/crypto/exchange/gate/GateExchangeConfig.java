@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.exchange.gate;
+package ch.zankowski.crypto.exchange.gate;
 
-import ch.zankowski.crypto.listing.exchange.ExchangeMode;
+import ch.zankowski.crypto.exchange.ExchangeMode;
 import io.quarkus.runtime.annotations.StaticInitSafe;
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithName;

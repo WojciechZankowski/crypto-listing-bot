@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.marketdata.dto;
+package ch.zankowski.crypto.marketdata.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;

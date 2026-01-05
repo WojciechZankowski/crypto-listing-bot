@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.exchange.gate;
+package ch.zankowski.crypto.exchange.gate;
 
-import ch.zankowski.crypto.listing.exchange.ExchangeService;
+import ch.zankowski.crypto.exchange.ExchangeService;
 import io.gate.gateapi.ApiException;
 import io.gate.gateapi.models.Currency;
 import io.gate.gateapi.models.Order;

@@ -31,5 +31,5 @@ class BinanceListingAnnouncementJobTest {
         announcementJob.execute(null);
 
         verify(serviceMock).performAnnouncementListingCheck();
-    }
+    } 
 }

@@ -11,8 +11,11 @@ import java.util.List;
 @Jacksonized
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BinanceListingData {
+public class BinanceListingCatalog {
 
-    private final List<BinanceListingCatalog> catalogs;
+    private final Long catalogId;
+    private final String catalogName;
+    private final List<BinanceListingArticle> articles;
 
 }
+

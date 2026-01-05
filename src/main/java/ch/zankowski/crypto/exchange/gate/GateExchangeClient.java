@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.exchange.gate;
+package ch.zankowski.crypto.exchange.gate;
 
 import io.gate.gateapi.ApiClient;
 import io.gate.gateapi.ApiException;
@@ -33,7 +33,7 @@ public class GateExchangeClient {
         return apiInstance.listCurrencies();
     }
 
-    public Optional<ch.zankowski.crypto.listing.marketdata.dto.Ticker> listTicker(final String currencyPair) {
+    public Optional<ch.zankowski.crypto.marketdata.dto.Ticker> listTicker(final String currencyPair) {
         try {
             return apiInstance.listTickers().currencyPair(currencyPair).execute().stream()
                     .map(this::map)
@@ -44,7 +44,7 @@ public class GateExchangeClient {
         }
     }
 
-    public List<ch.zankowski.crypto.listing.marketdata.dto.Ticker> listTickers() {
+    public List<ch.zankowski.crypto.marketdata.dto.Ticker> listTickers() {
         try {
             return apiInstance.listTickers().execute().stream()
                     .map(this::map)
@@ -55,8 +55,8 @@ public class GateExchangeClient {
         }
     }
 
-    private ch.zankowski.crypto.listing.marketdata.dto.Ticker map(final Ticker ticker) {
-        return ch.zankowski.crypto.listing.marketdata.dto.Ticker.builder()
+    private ch.zankowski.crypto.marketdata.dto.Ticker map(final Ticker ticker) {
+        return ch.zankowski.crypto.marketdata.dto.Ticker.builder()
                 .currencyPair(ticker.getCurrencyPair())
                 .changePercentage(toBigDecimal(ticker.getChangePercentage()))
                 .high24h(toBigDecimal(ticker.getHigh24h()))

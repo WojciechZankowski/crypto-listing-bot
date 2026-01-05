@@ -1,9 +1,9 @@
 package ch.zankowski.crypto.listing;
 
 import ch.zankowski.crypto.listing.dto.CryptoSymbol;
-import ch.zankowski.crypto.listing.exchange.gate.GateExchangeService;
-import ch.zankowski.crypto.listing.marketdata.gate.GateMarketDataProvider;
-import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
+import ch.zankowski.crypto.exchange.gate.GateExchangeService;
+import ch.zankowski.crypto.marketdata.gate.GateMarketDataProvider;
+import ch.zankowski.crypto.marketdata.dto.Ticker;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;

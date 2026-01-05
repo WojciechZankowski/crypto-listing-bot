@@ -1,4 +1,4 @@
-package ch.zankowski.crypto.listing.exchange;
+package ch.zankowski.crypto.exchange;
 
 import io.gate.gateapi.models.Order;
 

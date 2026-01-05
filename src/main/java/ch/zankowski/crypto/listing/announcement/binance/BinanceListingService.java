@@ -45,7 +45,7 @@ public class BinanceListingService implements ListingService {
     @SneakyThrows
     void onStart(@Observes StartupEvent ev) {
         try {
-            processedCurrencies.addAll(fetchListingAnnouncements());
+//            processedCurrencies.addAll(fetchListingAnnouncements());
         } catch (final Exception e) {
             log.error("Failed to fetch initial listing announcements", e);
         }
@@ -83,7 +83,7 @@ public class BinanceListingService implements ListingService {
     private Set<CryptoSymbol> fetchListingAnnouncements() {
         return BinanceAnnouncementParser.parse(
                 binanceListingAnnouncementClient.getListingAnnouncements(
-                        1L, 48L, 1L, 3L).getData());
+                        1L, 48L, 1L, 10L).getData());
     }
 
     @Override

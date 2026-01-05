@@ -1,8 +1,8 @@
 package ch.zankowski.crypto.listing;
 
-import ch.zankowski.crypto.listing.exchange.ExchangeService;
-import ch.zankowski.crypto.listing.marketdata.MarketDataProvider;
-import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
+import ch.zankowski.crypto.exchange.ExchangeService;
+import ch.zankowski.crypto.marketdata.MarketDataProvider;
+import ch.zankowski.crypto.marketdata.dto.Ticker;
 import ch.zankowski.crypto.listing.util.BigDecimals;
 import io.gate.gateapi.models.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,9 @@ public class ListingOrderCancellationThread implements Runnable {
         final Consumer<Ticker> tickerConsumer = ticker -> {
 
             try {
-                final BigDecimal orderPrice = new BigDecimal(order.getPrice());
+                final BigDecimal orderPrice = order.getFillPrice() != null
+                        ? new BigDecimal(order.getFillPrice())
+                        : new BigDecimal(order.getPrice());
                 final BigDecimal priceDifference = ticker.getLast().subtract(orderPrice);
 
                 final BigDecimal profitAndLoss = BigDecimals.divide(orderPrice, priceDifference);

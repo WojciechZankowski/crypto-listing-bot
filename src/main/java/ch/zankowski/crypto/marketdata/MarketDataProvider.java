@@ -1,6 +1,6 @@
-package ch.zankowski.crypto.listing.marketdata;
+package ch.zankowski.crypto.marketdata;
 
-import ch.zankowski.crypto.listing.marketdata.dto.Ticker;
+import ch.zankowski.crypto.marketdata.dto.Ticker;
 
 import java.util.List;
 import java.util.Optional;
