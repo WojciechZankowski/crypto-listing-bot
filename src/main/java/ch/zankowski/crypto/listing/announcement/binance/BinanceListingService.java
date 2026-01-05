@@ -15,10 +15,10 @@ import org.quartz.SimpleScheduleBuilder;
 import org.quartz.SimpleTrigger;
 import org.quartz.TriggerBuilder;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -44,7 +44,11 @@ public class BinanceListingService implements ListingService {
 
     @SneakyThrows
     void onStart(@Observes StartupEvent ev) {
-        processedCurrencies.addAll(fetchListingAnnouncements());
+        try {
+            processedCurrencies.addAll(fetchListingAnnouncements());
+        } catch (final Exception e) {
+            log.error("Failed to fetch initial listing announcements", e);
+        }
 
         final JobDetail job = JobBuilder.newJob(BinanceListingAnnouncementJob.class)
                 .withIdentity("Binance Announcement Listing")
@@ -53,7 +57,7 @@ public class BinanceListingService implements ListingService {
                 .withIdentity("Binance Announcement Listing trigger")
                 .startNow()
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(2)
+                        .withIntervalInSeconds(5)
                         .repeatForever())
                 .build();
         quartz.scheduleJob(job, listingTrigger);
@@ -79,7 +83,7 @@ public class BinanceListingService implements ListingService {
     private Set<CryptoSymbol> fetchListingAnnouncements() {
         return BinanceAnnouncementParser.parse(
                 binanceListingAnnouncementClient.getListingAnnouncements(
-                        48L, 1L, 3L, System.currentTimeMillis()).getData());
+                        1L, 48L, 1L, 3L).getData());
     }
 
     @Override

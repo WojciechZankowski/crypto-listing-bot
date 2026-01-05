@@ -12,7 +12,7 @@ public class ListingOrderCreationHelper {
             final String amount,
             final Order.SideEnum side) {
         final Order order = new Order();
-        order.setAccount(Order.AccountEnum.SPOT);
+        order.setAccount("spot");
         order.setType(Order.TypeEnum.LIMIT);
         order.setCurrencyPair(currencyPair);
         order.setSide(side);

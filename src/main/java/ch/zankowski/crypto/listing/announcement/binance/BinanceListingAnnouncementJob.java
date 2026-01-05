@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 @Slf4j
 public class BinanceListingAnnouncementJob implements Job {

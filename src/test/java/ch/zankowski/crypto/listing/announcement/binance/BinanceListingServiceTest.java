@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.quartz.Scheduler;
 
-import javax.enterprise.event.Event;
+import jakarta.enterprise.event.Event;
 import java.util.List;
 import java.util.Set;
 

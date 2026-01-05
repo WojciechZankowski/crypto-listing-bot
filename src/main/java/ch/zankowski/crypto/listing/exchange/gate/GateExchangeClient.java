@@ -8,8 +8,8 @@ import io.gate.gateapi.models.Order;
 import io.gate.gateapi.models.Ticker;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,7 +70,7 @@ public class GateExchangeClient {
     }
 
     public Order placeOrder(final Order order) throws ApiException {
-        return apiInstance.createOrder(order);
+        return apiInstance.createOrder(order, null);
     }
 
 }

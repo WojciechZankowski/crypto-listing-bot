@@ -1,8 +1,12 @@
 quarkus:
   rest-client:
     ch.zankowski.crypto.listing.announcement.binance.client.BinanceListingAnnouncementClient:
-      url: https://www.binance.com/bapi/composite/v1/public/cms/article/catalog/list/query
-      scope: javax.inject.Singleton
+      url: https://www.binance.com/bapi/apex/v1/public/apex/cms/article/list/query
+      scope: jakarta.inject.Singleton
+      logging:
+        scope: request-response
+        body-limit: 4096
+      enable-compression: true
   scheduler:
     enabled: true
   quartz:

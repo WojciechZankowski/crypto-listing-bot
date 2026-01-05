@@ -8,9 +8,9 @@ import ch.zankowski.crypto.listing.util.BigDecimals;
 import io.gate.gateapi.models.Order;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
