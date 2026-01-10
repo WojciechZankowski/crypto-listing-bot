@@ -1,0 +1,13 @@
+quarkus:
+  rest-client:
+    ch.zankowski.crypto.listing.announcement.binance.client.BinanceListingAnnouncementClient:
+      url: http://localhost:8080
+  log:
+    file:
+      enable: false
+  arc:
+    test:
+      disable-application-lifecycle-observers: true
+  scheduler:
+    enabled: false
+

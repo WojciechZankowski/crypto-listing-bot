@@ -1,0 +1,43 @@
+{
+  "code": "000000",
+  "message": null,
+  "messageDetail": null,
+  "data": {
+    "catalogs": [
+      {
+        "catalogId": 48,
+        "parentCatalogId": null,
+        "icon": "https://public.bnbstatic.com/image/cms/content/body/202505/d3201bf0be35bb246b65a767221410e0.png",
+        "catalogName": "New Cryptocurrency Listing",
+        "description": null,
+        "catalogType": 1,
+        "total": 2039,
+        "articles": [
+          {
+            "id": 260547,
+            "code": "69689d93dade4eaebbdd9d2d8582da17",
+            "title": "Notice on New Trading Pairs & Trading Bots Services on Binance Spot - 2025-12-24",
+            "type": 1,
+            "releaseDate": 1766387700000
+          },
+          {
+            "id": 260568,
+            "code": "bfe438851d504c89b27df2ad25bb0cf6",
+            "title": "Binance Will List KGST & Enable Trading Bots Services on Binance Spot - 2025-12-24",
+            "type": 1,
+            "releaseDate": 1766386801293
+          },
+          {
+            "id": 260501,
+            "code": "9e90affc1f364000b4ed299a64f3f5bc",
+            "title": "Binance Futures Will Launch USD?-Margined ZKPUSDT, GUAUSDT and IRUSDT Perpetual Contract (2025-12-21)",
+            "type": 1,
+            "releaseDate": 1766306007340
+          }
+        ],
+        "catalogs": []
+      }
+    ]
+  },
+  "success": true
+}

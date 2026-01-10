@@ -57,7 +57,7 @@ public class BinanceListingService implements ListingService {
                 .withIdentity("Binance Announcement Listing trigger")
                 .startNow()
                 .withSchedule(SimpleScheduleBuilder.simpleSchedule()
-                        .withIntervalInSeconds(5)
+                        .withIntervalInSeconds(10)
                         .repeatForever())
                 .build();
         quartz.scheduleJob(job, listingTrigger);

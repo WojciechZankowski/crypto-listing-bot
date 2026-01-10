@@ -25,4 +25,8 @@ public class BigDecimals {
         return dividend.divide(divisor, DIVISION_CONTEXT);
     }
 
+    public static boolean isZero(final BigDecimal value) {
+        return value != null && BigDecimal.ZERO.compareTo(value) == 0;
+    }
+
 }

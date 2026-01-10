@@ -1,7 +1,7 @@
 quarkus:
   rest-client:
     ch.zankowski.crypto.listing.announcement.binance.client.BinanceListingAnnouncementClient:
-      url: https://www.binance.com/bapi/apex/v1/public/apex/cms/article/list/query
+      url: https://www.binance.com
       scope: jakarta.inject.Singleton
       logging:
         scope: request-response
@@ -42,6 +42,7 @@ crypto:
       mode: PAPER
       key: XXXX
       secret: XXXXXXXX
+      url: https://api.gateio.ws/api/v4
   twitter:
     apiKey: XXXXXXXXX
     secretApiKey: XXXXXXXXXXX

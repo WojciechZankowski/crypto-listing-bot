@@ -18,4 +18,7 @@ public interface GateExchangeConfig {
     @WithName("secret")
     String secret();
 
+    @WithName("url")
+    String url();
+
 }

@@ -1,6 +1,7 @@
 package ch.zankowski.crypto.listing.announcement.binance.client;
 
 import ch.zankowski.crypto.listing.announcement.binance.dto.BinanceListingResponse;
+import jakarta.ws.rs.Path;
 import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
@@ -13,6 +14,7 @@ import jakarta.ws.rs.QueryParam;
 @ClientHeaderParam(name = "Expires", value = "0")
 public interface BinanceListingAnnouncementClient {
 
+    @Path("/bapi/apex/v1/public/apex/cms/article/list/query")
     @GET
     BinanceListingResponse getListingAnnouncements(
             @QueryParam("type") final Long type,

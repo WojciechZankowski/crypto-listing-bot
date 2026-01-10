@@ -25,7 +25,7 @@ public class GateExchangeClient {
     @Inject
     public GateExchangeClient(final GateExchangeConfig gateExchangeConfig) {
         final ApiClient defaultClient = new ApiClient(gateExchangeConfig.key(), gateExchangeConfig.secret());
-        defaultClient.setBasePath("https://api.gateio.ws/api/v4");
+        defaultClient.setBasePath(gateExchangeConfig.url());
         apiInstance = new SpotApi(defaultClient);
     }
 
@@ -39,7 +39,7 @@ public class GateExchangeClient {
                     .map(this::map)
                     .findFirst();
         } catch (final ApiException e) {
-            log.error("Failed to retrieve tickers");
+            log.error("Failed to retrieve tickers.", e);
             return Optional.empty();
         }
     }
@@ -50,7 +50,7 @@ public class GateExchangeClient {
                     .map(this::map)
                     .collect(Collectors.toList());
         } catch (final ApiException e) {
-            log.error("Failed to retrieve tickers");
+            log.error("Failed to retrieve tickers.", e);
             return List.of();
         }
     }
